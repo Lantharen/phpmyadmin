@@ -25,10 +25,6 @@ WORKDIR /var/www/html
 # Установить зависимости Composer
 RUN composer install --no-interaction --no-plugins --no-scripts --prefer-dist
 
-# Права на папку для кеша и хранилища Laravel
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache && \
-    chmod -R 775 /var/www/storage /var/www/bootstrap/cache
-
 # Открыть порт 9000 , только не понял зачем....
 EXPOSE 9000
 
