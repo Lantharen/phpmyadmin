@@ -3,22 +3,22 @@ version: '3.8'
 services:
     app:
         build:
-            context: /home/lanth/docker-test
+            context: /home/lanth/Документы/phpmyadmin
             dockerfile: Dockerfile
-        container_name: laravel_app
+        container_name: laravel_app_phpmyadmin
         volumes:
-            - /home/lanth/docker-test:/var/www
+            - /home/lanth/Документы/phpmyadmin:/var/www
         networks:
             - app-network
 
     nginx:
         image: nginx:alpine
-        container_name: nginx_server
+        container_name: nginx_server_phpmyadmin
         ports:
-            - "8080:80"
+            - "8081:80"
         volumes:
-            - /home/lanth/docker-test:/var/www
-            - /home/lanth/docker-test/nginx/default.conf:/etc/nginx/conf.d/default.conf
+            - /home/lanth/Документы/phpmyadmin:/var/www
+            - /home/lanth/Документы/phpmyadmin/nginx/default.conf:/etc/nginx/conf.d/default.conf
         depends_on:
             - app
         networks:
@@ -27,20 +27,19 @@ services:
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         links:
-            - laravel_db:db
+            - laravel_db_phpmyadmin:db
         ports:
-            - "8012:80"
+            - "8013:80"
         environment:
             MYSQL_ROOT_PASSWORD: root
         depends_on:
             - db
-
         networks:
             - app-network
 
     db:
         image: mysql:8
-        container_name: laravel_db
+        container_name: laravel_db_phpmyadmin
         ports:
             - "3306:3306"
         volumes:
